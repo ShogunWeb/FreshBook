@@ -1,0 +1,42 @@
+/* global browser */
+const DEFAULTS = {
+  enabled: true,
+  removeStories: true,
+  removeReels: true,
+  removeSuggested: true,
+  removeWall: false
+};
+
+const KEYS = Object.keys(DEFAULTS);
+const storageArea = browser.storage.local;
+
+function $(id) { return document.getElementById(id); }
+
+async function load() {
+  const s = await storageArea.get(DEFAULTS);
+  KEYS.forEach(k => { $(k).checked = !!s[k]; });
+}
+
+async function save(key, value) {
+  await storageArea.set({ [key]: value });
+  try {
+    const tabs = await browser.tabs.query({ url: "*://*.facebook.com/*" });
+    await Promise.all(
+      tabs
+        .filter(t => t.id)
+        .map(t => browser.tabs.sendMessage(t.id, { type: "CF_SETTINGS_UPDATED" }))
+    );
+  } catch (e) {
+  }
+}
+
+function wire() {
+  KEYS.forEach(k => {
+    $(k).addEventListener("change", (e) => save(k, e.target.checked));
+  });
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  wire();
+  await load();
+});

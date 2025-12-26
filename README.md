@@ -13,7 +13,7 @@ A minimal Firefox add-on that hides selected Facebook UI elements:
 
 2. Run:
    - `cd clean-facebook-mvp/src`
-   - `web-ext run`
+   - `web-ext run --source-dir .`
 
 ## Notes
 

@@ -19,6 +19,9 @@ A minimal Firefox add-on that hides selected Facebook UI elements:
 
 Facebook changes its DOM frequently. This MVP uses best-effort heuristics and may need updates.
 
+## License
+This add-on is distributed under the AGPLv3 license. Copyright 2025 - Shogun Web
+
 ## Privacy
 
 No data collection. No tracking. No network requests.

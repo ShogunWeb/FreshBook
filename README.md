@@ -3,7 +3,7 @@
 A minimal Firefox add-on that hides selected Facebook UI elements:
 - Stories
 - Reels
-- Suggested posts (basic English-only heuristic)
+- Suggested posts (heuristic; language variants supported)
 - The wall / news feed (optional)
 
 ## Install for development (Firefox)
@@ -12,8 +12,14 @@ A minimal Firefox add-on that hides selected Facebook UI elements:
    - `npm i -g web-ext`
 
 2. Run:
-   - `cd clean-facebook-mvp/src`
-   - `web-ext run --source-dir .`
+   - `web-ext run --source-dir src`
+
+## Tests
+
+Unit tests cover settings application and popup storage/messaging logic.
+
+Run:
+- `npm test`
 
 ## Notes
 

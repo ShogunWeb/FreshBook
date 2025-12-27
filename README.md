@@ -1,5 +1,7 @@
 # FreshBook
 
+[![Package Firefox](https://github.com/ShogunWeb/FreshBook/actions/workflows/package-firefox.yml/badge.svg)](https://github.com/ShogunWeb/FreshBook/actions/workflows/package-firefox.yml)
+
 A minimal Firefox add-on that hides selected Facebook UI elements:
 - Stories
 - Reels
@@ -20,6 +22,11 @@ Unit tests cover settings application and popup storage/messaging logic.
 
 Run:
 - `npm test`
+
+## Downloads
+
+Latest build artifact (Packaged add-on):
+- https://github.com/ShogunWeb/FreshBook/actions/workflows/package-firefox.yml
 
 ## Notes
 

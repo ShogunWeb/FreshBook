@@ -1,5 +1,6 @@
 /* FreshBook - settings application */
 (function () {
+  // Apply rule functions based on stored settings; injectable ctx for tests.
   function applySettings(s, api) {
     const ctx = api || window;
     if (!s || !ctx) return;

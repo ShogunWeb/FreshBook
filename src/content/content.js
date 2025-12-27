@@ -20,6 +20,7 @@
     return settings;
   }
 
+  // Debounce applies to avoid hammering DOM during rapid mutations/updates.
   function debounceApply(fn, delayMs) {
     const now = Date.now();
     if (scheduled) return;
@@ -34,6 +35,7 @@
 
   let lastSettings = null;
 
+  // Apply rules using explicit settings or fetch from storage.
   async function applyAll(settingsOverride) {
     const s = settingsOverride || await getSettings();
     try {
@@ -80,6 +82,7 @@
     }
   }
 
+  // Fast diff to avoid re-applying on unchanged settings.
   function settingsChanged(next) {
     if (!lastSettings) return true;
     return Object.keys(DEFAULTS).some(k => next[k] !== lastSettings[k]);
@@ -96,13 +99,10 @@
   // Initial pass
   debounceApply(applyAll, 0);
 
-  // Poll for settings changes to cover cases where onChanged doesn't fire
-  // setInterval(checkSettingsChange, 1000);
-
-  // Re-apply when settings change
+  // Re-apply when settings change from storage.
   browser.storage.onChanged.addListener(() => debounceApply(applyAll, 50));
 
-  // Re-apply when popup notifies about a settings change
+  // Re-apply when popup notifies about a settings change.
   browser.runtime.onMessage.addListener((msg) => {
     if (msg && msg.type === "CF_SETTINGS_UPDATED") {
       debounceApply(applyAll, 0);

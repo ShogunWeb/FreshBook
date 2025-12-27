@@ -8,6 +8,7 @@ const DEFAULTS = {
 };
 
 const KEYS = Object.keys(DEFAULTS);
+// Use local storage for deterministic behavior in Firefox.
 const storageArea = browser.storage.local;
 
 function $(id) { return document.getElementById(id); }
@@ -20,6 +21,7 @@ async function load() {
 async function save(key, value) {
   await storageArea.set({ [key]: value });
   try {
+    // Notify all facebook.com tabs so content scripts re-apply immediately.
     const tabs = await browser.tabs.query({ url: "*://*.facebook.com/*" });
     await Promise.all(
       tabs
@@ -27,6 +29,7 @@ async function save(key, value) {
         .map(t => browser.tabs.sendMessage(t.id, { type: "CF_SETTINGS_UPDATED" }))
     );
   } catch (e) {
+    // Ignore messaging errors (e.g., no matching tabs).
   }
 }
 

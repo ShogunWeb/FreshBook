@@ -21,7 +21,7 @@ jobs:
       - name: Install web-ext
         run: npm install --no-save web-ext
       - name: Build XPI
-        run: npx web-ext build --source-dir src
+        run: npx web-ext build --source-dir src --overwrite-dest
       - name: List artifacts
         run: ls -la web-ext-artifacts
       - name: Upload artifact

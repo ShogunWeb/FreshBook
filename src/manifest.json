@@ -33,6 +33,7 @@
         "content/rules/stories.js",
         "content/rules/reels.js",
         "content/rules/suggested.js",
+        "content/settings.js",
         "content/content.js"
       ],
       "run_at": "document_idle"

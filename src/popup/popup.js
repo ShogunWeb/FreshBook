@@ -40,3 +40,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   wire();
   await load();
 });
+
+if (typeof module !== "undefined") {
+  module.exports = {
+    DEFAULTS,
+    KEYS,
+    load,
+    save,
+    wire,
+    _test: { storageArea }
+  };
+}

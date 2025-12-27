@@ -36,6 +36,16 @@
 
   async function applyAll(settingsOverride) {
     const s = settingsOverride || await getSettings();
+    try {
+      if (typeof window.CF_applySettings === "function") {
+        window.CF_applySettings(s);
+        return;
+      }
+    } catch (e) {
+      console.debug("FreshBook settings error:", e);
+      return;
+    }
+
     if (!s.enabled) {
       if (typeof window.CF_restoreWallRule === "function") window.CF_restoreWallRule();
       if (typeof window.CF_restoreStoriesRule === "function") window.CF_restoreStoriesRule();

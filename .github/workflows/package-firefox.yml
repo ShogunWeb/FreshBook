@@ -21,11 +21,11 @@ jobs:
       - name: Install web-ext
         run: npm install --no-save web-ext
       - name: Build XPI
-        run: npx web-ext build --source-dir src --artifacts-dir dist
+        run: npx web-ext build --source-dir src
       - name: List artifacts
-        run: ls -la dist
+        run: ls -la web-ext-artifacts
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: freshbook-firefox-xpi
-          path: dist/*.{xpi,zip}
+          path: web-ext-artifacts/*

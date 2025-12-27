@@ -2,10 +2,13 @@
   "manifest_version": 3,
   "name": "FreshBook",
   "description": "Hide stories, reels, suggested posts, or the entire Facebook feed. (Open-source, privacy respecting)",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "browser_specific_settings": {
     "gecko": {
-      "id": "freshbook@shogunweb.be"
+      "id": "freshbook@shogunweb.be",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
     }
   },
   "icons": {
@@ -16,12 +19,6 @@
     "storage",
     "tabs"
   ],
-  "data_collection_permissions": {
-    "collects": [],
-    "collects_sensitive": [],
-    "shares": [],
-    "shares_sensitive": []
-  },
   "host_permissions": [
     "*://*.facebook.com/*"
   ],

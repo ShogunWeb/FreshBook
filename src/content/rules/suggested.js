@@ -1,22 +1,51 @@
 /* FreshBook - Suggested posts rule */
 window.CF_applySuggestedRule = function CF_applySuggestedRule() {
-  // Heuristic: remove posts that contain typical "suggested" language.
-  // NOTE: This is English-only for MVP.
+  // Heuristic: hide posts that contain typical "follow/join" language.
   const KEYWORDS = [
-    "Suggested for you",
-    "Suggested",
-    "Follow"
+    // English
+    "follow",
+    "join",
+    // French
+    "suivre",
+    "rejoindre",
+    // Dutch
+    "volgen",
+    "lid worden",
+    // German
+    "folgen",
+    "beitreten",
+    // Spanish
+    "seguir",
+    "unirte",
+    // Italian
+    "segui",
+    "unisciti"
   ];
 
-  document.querySelectorAll('[role="article"]').forEach(article => {
-    const text = (article.innerText || "").trim();
-    if (!text) return;
+  const candidates = new Set();
 
-    for (const kw of KEYWORDS) {
-      if (text.includes(kw)) {
-        article.remove();
-        return;
-      }
+  document.querySelectorAll("span").forEach(span => {
+    const text = (span.textContent || "").toLowerCase().trim();
+    if (!text) return;
+    if (!KEYWORDS.some(kw => text.includes(kw))) return;
+
+    const container = span.closest("[aria-labelledby]") || span.closest('[role="article"]');
+    if (container) candidates.add(container);
+  });
+
+  candidates.forEach(container => {
+    if (!container.dataset.cfSuggestedHidden) {
+      container.dataset.cfSuggestedHidden = "1";
+      container.dataset.cfSuggestedPrevDisplay = container.style.display || "";
     }
+    container.style.display = "none";
+  });
+};
+
+window.CF_restoreSuggestedRule = function CF_restoreSuggestedRule() {
+  document.querySelectorAll('[data-cf-suggested-hidden="1"]').forEach(container => {
+    container.style.display = container.dataset.cfSuggestedPrevDisplay || "";
+    delete container.dataset.cfSuggestedHidden;
+    delete container.dataset.cfSuggestedPrevDisplay;
   });
 };

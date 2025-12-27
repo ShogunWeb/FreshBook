@@ -49,7 +49,11 @@
       }
       if (s.removeStories && typeof window.CF_applyStoriesRule === "function") window.CF_applyStoriesRule();
       if (s.removeReels && typeof window.CF_applyReelsRule === "function") window.CF_applyReelsRule();
-      if (s.removeSuggested && typeof window.CF_applySuggestedRule === "function") window.CF_applySuggestedRule();
+      if (s.removeSuggested && typeof window.CF_applySuggestedRule === "function") {
+        window.CF_applySuggestedRule();
+      } else if (!s.removeSuggested && typeof window.CF_restoreSuggestedRule === "function") {
+        window.CF_restoreSuggestedRule();
+      }
     } catch (e) {
       console.debug("FreshBook rule error:", e);
     }

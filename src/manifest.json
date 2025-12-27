@@ -16,6 +16,12 @@
     "storage",
     "tabs"
   ],
+  "data_collection_permissions": {
+    "collects": [],
+    "collects_sensitive": [],
+    "shares": [],
+    "shares_sensitive": []
+  },
   "host_permissions": [
     "*://*.facebook.com/*"
   ],
